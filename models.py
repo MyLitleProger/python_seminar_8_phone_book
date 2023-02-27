@@ -55,8 +55,8 @@ class PhoneBook:
 
     def change(self, index: int, contact: dict):
         """ Изменение данных в файле """
-        self.data_file.pop(index - 1)
-        self.data_file.insert(index - 1, contact)
+        self.data_file.pop(index)
+        self.data_file.insert(index, contact)
 
     def search(self, search_inp: str):
         """ Поиск в файле """

@@ -32,15 +32,13 @@ def start():
                         case 4:
                             """Изменить контакт"""
                             data_file = pb.get()
-                            view.show(data_file)
-                            index = view.input_id()
-                            contact = view.add_user()
-                            pb.change(index, contact)
+                            contact = view.change(data_file)
+                            print(contact[0], contact[1])
+                            pb.change(contact[0], contact[1])
                         case 5:
                             """Найти контакт"""
                             search = view.search_contact()
-                            result = pb.search(search)
-                            view.show(result)
+                            view.show(pb.search(search))
                         case 6:
                             """Удалить контакт"""
                             data_file = pb.get()
