@@ -1,58 +1,60 @@
 import view
 import models
 
+pb = models.PhoneBook()
+
 
 def start():
     while True:
         item_first = view.first_menu()
         match item_first:
-            # open
             case 1:
-                if models.get_path():
-                    models.open_file()
+                """Открыть файл"""
+                if pb.get_path():
+                    pb.open_file()
                 else:
-                    models.create()
-                    models.open_file()
+                    pb.create()
+                    pb.open_file()
                 while True:
                     item_general = view.general_menu()
                     match item_general:
-                        # save
                         case 1:
-                            models.save()
-                        # show
+                            """Сохранить файл"""
+                            pb.save()
                         case 2:
-                            data_file = models.get()
-                            view.show_content(data_file)
-                        # add
+                            """Показать контакты"""
+                            data_file = pb.get()
+                            view.show(data_file)
                         case 3:
+                            """Добавить контакт"""
                             new_user = view.add_user()
-                            models.add(new_user)
-                        # change
+                            pb.add(new_user)
                         case 4:
-                            data_file = models.get()
-                            view.show_content(data_file)
+                            """Изменить контакт"""
+                            data_file = pb.get()
+                            view.show(data_file)
                             index = view.input_id()
                             contact = view.add_user()
-                            models.change(index, contact)
-                        # search
+                            pb.change(index, contact)
                         case 5:
-                            search = view.search_content()
-                            result = models.search(search)
-                            view.show_content(result)
-                        # delete
+                            """Найти контакт"""
+                            search = view.search_contact()
+                            result = pb.search(search)
+                            view.show(result)
                         case 6:
-                            data_file = models.get()
-                            view.show_content(data_file)
+                            """Удалить контакт"""
+                            data_file = pb.get()
+                            view.show(data_file)
                             index = view.input_id()
-                            name = models.get_name(index)
+                            name = pb.get_name(index)
                             if view.confirm('удалить', name):
-                                models.delete(index)
-                        # exit
+                                pb.delete(index)
                         case 7:
-                            if models.check_changes():
+                            """Выход"""
+                            if pb.check_changes():
                                 if view.confirm_changes():
-                                    models.save()
+                                    pb.save()
                             exit()
-            # exit
             case 2:
+                """Выход"""
                 exit()
