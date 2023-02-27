@@ -91,6 +91,7 @@ def search_contact() -> str:
 
 
 def input_int(message: str = '') -> int:
+    """Ввод целого числа"""
     while True:
         try:
             choice = int(input(message))
