@@ -41,7 +41,7 @@ class PhoneBook:
                 self.data_file.append(new_contact)
         self.old_data_file = deepcopy(self.data_file)
 
-    def save(self):
+    def save(self) -> bool:
         """ Сохранение файла, запись данных из списка в файл"""
         data = []
         for contact in self.data_file:
@@ -49,6 +49,8 @@ class PhoneBook:
         data = '\n'.join(data)
         with open(self.name_file, 'w', encoding='utf-8') as file:
             file.write(data)
+        self.old_data_file = deepcopy(self.data_file)
+        return True
 
     def add(self, new_contact: dict):
         """ Добавление данных в файл"""
@@ -68,9 +70,10 @@ class PhoneBook:
                     all_find.append(contact)
         return all_find
 
-    def delete(self, index: int):
+    def delete(self, index: int) -> bool:
         """ Удаление данных из файла """
         self.data_file.pop(index - 1)
+        return True
 
     def check_changes(self) -> bool:
         """Проверка несохраненных данных"""
