@@ -6,16 +6,17 @@ class PhoneBook:
     """Базовый класс телефонной книги
     :returns: имя файла, данный файла, начальные данные файла
     """
+
     def __init__(self, name_file: str = 'phone_db.txt'):
         self.name_file = name_file
         self.data_file = []
         self.old_data_file = []
 
-    def get(self):
+    def get(self) -> list:
         """Получить переменную"""
         return self.data_file
 
-    def get_name(self, index: int):
+    def get_name(self, index: int) -> str:
         """Получить имя"""
         return self.data_file[index - 1].get('name')
 
@@ -58,7 +59,7 @@ class PhoneBook:
         self.data_file.pop(index)
         self.data_file.insert(index, contact)
 
-    def search(self, search_inp: str):
+    def search(self, search_inp: str) -> list:
         """ Поиск в файле """
         all_find = []
         for contact in self.data_file:
@@ -71,6 +72,6 @@ class PhoneBook:
         """ Удаление данных из файла """
         self.data_file.pop(index - 1)
 
-    def check_changes(self):
+    def check_changes(self) -> bool:
         """Проверка несохраненных данных"""
         return True if self.data_file != self.old_data_file else False

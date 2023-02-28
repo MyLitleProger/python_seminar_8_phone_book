@@ -23,26 +23,20 @@ def start():
                             pb.save()
                         case 2:
                             """Показать контакты"""
-                            data_file = pb.get()
-                            view.show(data_file)
+                            view.show(pb.get())
                         case 3:
                             """Добавить контакт"""
-                            new_user = view.add_user()
-                            pb.add(new_user)
+                            pb.add(view.add_user())
                         case 4:
                             """Изменить контакт"""
-                            data_file = pb.get()
-                            contact = view.change(data_file)
-                            print(contact[0], contact[1])
+                            contact = view.change(pb.get())
                             pb.change(contact[0], contact[1])
                         case 5:
                             """Найти контакт"""
-                            search = view.search_contact()
-                            view.show(pb.search(search))
+                            view.show(pb.search(view.search_contact()))
                         case 6:
                             """Удалить контакт"""
-                            data_file = pb.get()
-                            view.show(data_file)
+                            view.show(pb.get())
                             index = view.input_id()
                             name = pb.get_name(index)
                             if view.confirm('удалить', name):
