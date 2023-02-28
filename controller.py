@@ -20,7 +20,7 @@ def start():
                     match item_general:
                         case 1:
                             """Сохранить файл"""
-                            pb.save()
+                            view.print_save(pb.save())
                         case 2:
                             """Показать контакты"""
                             view.show(pb.get())
@@ -40,12 +40,16 @@ def start():
                             index = view.input_id()
                             name = pb.get_name(index)
                             if view.confirm('удалить', name):
-                                pb.delete(index)
+                                view.print_delete(pb.delete(index))
+                            else:
+                                view.print_delete()
                         case 7:
                             """Выход"""
                             if pb.check_changes():
                                 if view.confirm_changes():
-                                    pb.save()
+                                    view.print_save(pb.save())
+                                else:
+                                    view.print_save()
                             exit()
             case 2:
                 """Выход"""

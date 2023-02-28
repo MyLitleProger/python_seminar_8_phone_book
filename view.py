@@ -62,26 +62,30 @@ def show(data: list[dict]):
 
 def add_user() -> dict:
     """Добавить контакт"""
-    name = input('Введите имя и фамилию: ')
-    phone = mask_phone()
-    comment = input('Введите комментарий: ')
-    return {'name': name, 'phone': phone, 'comment': comment}
+    while True:
+        name = input('Введите имя и фамилию: ')
+        if len(name):
+            phone = mask_phone()
+            comment = input('Введите комментарий: ')
+            return {'name': name, 'phone': phone, 'comment': comment}
+        else:
+            print('Имя не должно быть пустым!')
+            continue
 
 
 def change(data: list) -> tuple:
     """Изменяет контакт"""
     show(data)
     while True:
-        try:
-            choice = input_int('Выберите контакт, который хотите изменить: ')
+        choice = input_int('Выберите контакт, который хотите изменить: ')
+        if 0 < choice <= len(data):
             name = input('Введите новое имя или Enter оставить без изменений: ')
             phone = mask_phone('или Enter оставить без изменений')
             comment = input('Введите новый комментария или Enter оставить без изменений: ')
             return choice - 1, {'name': name if name else data[choice - 1].get('name'),
                                 'phone': phone if phone else data[choice - 1].get('phone'),
                                 'comment': comment if comment else data[choice - 1].get('comment')}
-        except IndexError:
-            print('Некорректный ввод')
+        continue
 
 
 def search_contact() -> str:
@@ -108,11 +112,21 @@ def input_id() -> int:
 
 def confirm(condition: str = '', name: str = '') -> bool:
     """Подтверждение решения"""
-    answer = input(f'Вы действительно хотите {condition} контакт {name}? (y/n): ')
-    return True if answer == 'y' else False
+    answer = input(f'Вы действительно хотите {condition} контакт {name}? (1 - да): ')
+    return True if answer == '1' else False
 
 
 def confirm_changes() -> bool:
     """Предупреждение о несохраненных данных"""
-    answer = input('У вас есть несохраненные изменения, хотите их сохранить? (y/n): ')
-    return True if answer == 'y' else False
+    answer = input('У вас есть несохраненные изменения, хотите их сохранить? (1 - да): ')
+    return True if answer == '1' else False
+
+
+def print_save(answer: bool = False):
+    """Вывод сообщения при изменении данных в файле"""
+    return print('Данные успешно сохранены') if answer else print('Сохранение данных отменено')
+
+
+def print_delete(answer: bool = False):
+    """Вывод сообщения при удалении контакта"""
+    return print('Данные успешно удалены') if answer else print('Данные не удалены')
